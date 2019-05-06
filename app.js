@@ -96,6 +96,8 @@ app.post('/', (req, res) => {
   })
 })
 
-app.listen(port, () => {
-  console.log(`Project View Listening on Port ${port}!`)
-})
+// app.listen(port, () => {
+//   console.log(`Project View Listening on Port 3002!`)
+// })
+
+app.listen(process.env.PORT || 3002)
