@@ -8,5 +8,3 @@
 6. Run npm start
 7. Open browser and hit http://localhost:3001
 
-
-
