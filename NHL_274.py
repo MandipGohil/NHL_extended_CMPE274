@@ -1,7 +1,7 @@
 import sys
 from sklearn.externals import joblib
 
-logreg = joblib.load('../Model/nhl.logistic_model.joblib')
+logreg = joblib.load('./Model/nhl.logistic_model.joblib')
 
 x = [0]*64
 home = int(sys.argv[1])
