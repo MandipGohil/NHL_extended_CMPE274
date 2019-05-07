@@ -105,8 +105,8 @@ var transporter = nodemailer.createTransport({
 var mailOptions = {
   from: 'sharkscmpe274@gmail.com',
   to: req.body.email,
-  subject: 'NHL Game Predictor',
-  text: message
+  subject: 'Ice Hockey Game Predictor by Sharks',
+  text: message + "\r\n\r\nThank you"
 };
 
 transporter.sendMail(mailOptions, function(error, info){
