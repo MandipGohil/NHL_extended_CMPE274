@@ -20,45 +20,40 @@ app.post('/getHomeTeam', (req, res) => {
   console.log(req.query.homeTeamId)
   res.render('home', {teaminfo: "response from server"})
 })
-// http://www.espn.com/nhl/players
-var map1 = new Map();
-map1.set('New Jersey',['Blake Coleman','Nico Hischier', 'Michael McLeod', 'Kevin Rooney','Pavel Zacha', 'Travis Zajac']);
-map1.set('Philadelphia',['Sean Couturier','Corban Knight','Travis Konecny','Scott','Nolan','Phil']);
-map1.set('NY Islanders',['Mathew Barzal','Casey Cizikas','Valtteri Filppula','Tanner Fritz','Leo Komarov','Brock Nelson']);
-map1.set('NY Rangers',['','','','','','']);
-map1.set('Pittsburgh',['','','','','','']);
-map1.set('Boston',['','','','','','']);
-map1.set('Buffalo',['','','','','','']);
-map1.set('Montreal',['','','','','','']);
-map1.set('Ottawa',['','','','','','']);
-map1.set('Toronto',['','','','','','']);
-map1.set('Carolina',['','','','','','']);
-map1.set('Florida',['','','','','','']);
-map1.set('Tampa Bay',['','','','','','']);
-map1.set('Washington',['','','','','','']);
-map1.set('Chicago',['','','','','','']);
-map1.set('Detroit',['','','','','','']);
-map1.set('Nashville',['','','','','','']);
-map1.set('St Louis',['','','','','','']);
-map1.set('Calgary',['','','','','','']);
-map1.set('Colorado',['','','','','','']);
-map1.set('Edmonton',['','','','','','']);
-map1.set('Vancouver',['','','','','','']);
-map1.set('Anaheim',['','','','','','']);
-map1.set('Dallas',['','','','','','']);
-map1.set('Los Angeles',['','','','','','']);
-map1.set('Phoenix',['','','','','','']);
-map1.set('San Jose',['','','','','','']);
-map1.set('Columbus',['','','','','','']);
-map1.set('Minnesota',['','','','','','']);
-map1.set('Winnipeg',['','','','','','']);
-map1.set('Arizona',['','','','','','']);
-map1.set('Vegas',['','','','','','']);
 
+// http://www.espn.com/nhl/players
 var obj = {
-  'New Jersey': ['mandip', 'shash'],
+  'New Jersey': ['Blake Coleman', '	Nico Hischier','Michael McLeod','Kevin Rooney','Pavel Zacha','Travis Zajac'],
   'Philadelphia': ['Sean Couturier','Corban Knight','Travis Konecny','Scott','Nolan','Phil'],
-  'NY Islanders': ['Mathew Barzal','Casey Cizikas','Valtteri Filppula','Tanner Fritz','Leo Komarov','Brock Nelson']
+  'NY Islanders': ['Mathew Barzal','Casey Cizikas','Valtteri Filppula','Tanner Fritz','Leo Komarov','Brock Nelson'],
+  'NY Rangers' : ['Lias Andersson','onnor Brickley','Filip Chytil','Brett Howden','Vinni Lettieri','Boo Nieves'],
+  'Pittsburgh':['Zach','Nick Bjugstd','Teddy Blueger','Sidney Crosby','Matt Cullen','Jake Guentzel'],
+  'Boston':['Noel','David','Patrice','Paul','Charlie','Ryan'],
+  'Buffalo':['Jack','Zemgus','Casey','Sam','Scott','Vladimir'],
+  'Montreal':['Byron','Philip','Max Domi','Andrew Shaw','Jordan Weal','Nate Thompson'],
+  'Ottawa':['Frederik Gauthier','Zach Hyman','    Nazem Kadri','Patrick Marleau','Mitch Marner',' Auston Matthews'],
+  'Carolina':['Patrick Brown','Greg McKegg','Jordan Staal','Lucas Wallmark','Sebastian Aho','Micheal Ferland'],
+  'Florida':['Aleksander Barkov',' Henrik Borgstrom','Jonathan Huberdeau','    Derek MacKenzie','Denis Malgin','Colton Sceviour'],
+  'Tampa Bay':['Anthony Cirelli','Tyler Johnson','Alex Killorn','  Danick Martel','J.T. Miller','Cedric Paquette'],
+  'Washington':['Nicklas Backstrom','Travis Boyd','Nic Dowd','Lars Eller','Juuso Ikonen','Evgeny Kuznetsov'],
+  'Chicago':['Artem Anisimov','Drake Caggiula','John Hayden','Dominik Kahun','David Kampf','   Marcus Kruger'],
+  'Detroit':['Andreas Athanasiou','Christoffer Ehn','Luke Glendening','Darren Helm','Dylan Larkin','Frans Nielsen'],
+  'Nashville':['Nick Bonino','Brian Boyle','Filip Forsberg','Frederick Gaudreau','Mikael Granlund','Rocco Grimaldi'],
+  'St Louis':['Tyler Bozak','Robby Fabbri','Ryan OReilly','Brayden Schenn','Oskar Sundqvist','Robert Thomas'],
+  'Calgary':['Mikael Backlund','Sam Bennett','Austin Czarnik','Dillon Dube','Mark Jankowski','Elias Lindholm'],
+  'Colorado':['Derick Brassard','Tyson Jost','Alexander Kerfoot','Nathan MacKinnon','Carl Soderberg','Colin Wilson'],
+  'Edmonton':['Kyle Brodziak','Colby Cave','Leon Draisaitl','Sam Gagner','Joe Gambardella','Brad Malone'],
+  'Vancouver':['Jay Beagle','Adam Gaudette','Markus Granlund','Bo Horvat','Tyler Motte','  Elias Pettersson'],
+  'Anaheim':['Ryan Getzlaf','Derek Grant','Adam Henrique','Ryan Kesler','Rickard Rakell','Devin Shore'],
+  'Dallas':['Andrew Cogliano','Jason Dickinson','Justin Dowling','Radek Faksa','Mattias Janmark','Tyler Seguin'],
+  'Los Angeles':['Jonny Brodzinski','Jeff Carter','Alex Iafallo','Anze Kopitar','Trevor Lewis','Blake Lizotte'],
+  'Phoenix':['Carl Dahlstrom','Gustav Forsling','Erik Gustafsson','Duncan Keith','Slater Koekkoek','Connor Murphy'],
+  'San Jose':['Logan Couture','Dylan Gambrell','Micheal Haley','Tomas Hertl','Gustav Nyquist','Joe Pavelski'],
+  'Columbus':['Brandon Dubinsky','Pierre-Luc Dubois','Matt Duchene','Boone Jenner','Riley Nash','Lukas Sedlak'],
+  'Minnesota':['Ryan Donato','Joel Eriksson Ek','Mikko Koivu','Luke Kunin','Victor Rask','Eric Staal'],
+  'Winnipeg':['Mason Appleton','Andrew Copp','Marko Dano','Kevin Hayes','Matt Hendricks','Par Lindholm'],
+  'Arizona':['Dave Bolland','Nick Cousins','Christian Dvorak','Alex Galchenyuk','Vinnie Hinostroza','Clayton Keller'],
+  'Vegas':['Ryan Carpenter','Cody Eakin','William Karlsson','Jonathan Marchessault','Tomas Nosek','Brandon Pirri']
 }
 
 
