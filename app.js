@@ -9,7 +9,7 @@ app.set('views', path.join(__dirname, '/view'));
 app.set('view engine','ejs');
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: false }));
-
+var nodemailer = require("nodemailer");
 app.get('/', (req, res) => {
   res.render('home')
 })
@@ -62,17 +62,18 @@ var obj = {
 }
 
 
+var message = '';
+var homeTeamPlayers =[];
+var awayTeamPlayers =[];
+
 app.post('/', (req, res) => {
-  console.log(req.body)
   console.log('python "NHL_274.py" ' + req.body.home.split(',')[0] + ' ' + req.body.away.split(',')[0])
   
-  var homeTeamPlayers =[];
-  if( obj[req.body.home.split(',')[1]].length > 0 ){
+  if( req.body.home.split(',')[1].length > 0 ){
     homeTeamPlayers = obj[req.body.home.split(',')[1]];
   }
 
-  var awayTeamPlayers =[];
-  if( obj[req.body.away.split(',')[1]].length > 0 ){
+  if( req.body.away.split(',')[1].length > 0 ){
     awayTeamPlayers = obj[req.body.away.split(',')[1]];
   }
 
@@ -91,11 +92,41 @@ app.post('/', (req, res) => {
     res.render('home', {
       message: message,
       homeTeamPlayers: homeTeamPlayers,
-      awayTeamPlayers: awayTeamPlayers
+      awayTeamPlayers: awayTeamPlayers,
+      emailStatus: ''
     })
   })
 })
+app.post('/email',(req, res) => {
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+        user: "sharkscmpe274@gmail.com",
+        pass: "sharks@123"
+    }
+});
+  console.log(req.body.email + ' ' +  message);
 
+var mailOptions = {
+  from: 'sharkscmpe274@gmail.com',
+  to: req.body.email,
+  subject: 'NHL Game Predictor',
+  text: req.body.text
+};
+
+transporter.sendMail(mailOptions, function(error, info){
+  if (error) {
+    console.log(error);
+  } else {
+     console.log("success");
+  }
+});
+res.render('home', {
+      message: message,
+      homeTeamPlayers: homeTeamPlayers,
+      awayTeamPlayers: awayTeamPlayers,
+      emailStatus: 'Email notifcation sent successfully'
+    })});
 // app.listen(port, () => {
 //   console.log(`Project View Listening on Port 3002!`)
 // })
