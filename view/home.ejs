@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-    <title>Node Authentication</title>
+    <title>Sharks</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="/stylesheets/styles.css">
@@ -64,7 +64,7 @@
             <h1 class="main"><span class="fa"></span> NHL Game Predictor</h1>
             
             <!-- LOGIN FORM -->
-            <form action method="post">
+            <form action="http://localhost:3002/" method="post">
                 <div class="form-group">
                     <label class="teamHome">Home Team</label>
 
@@ -72,7 +72,10 @@
                         var value = document.getElementById("myList");
                         homeTeamBackend = value.value;
                         console.log(homeTeamBackend);
-                    } 
+                    }
+                    f123 = function() {
+                         console.log("emailing");
+                    }
                     </script>
 
                     <select name="home" id = "myList"  onchange="f1()">
@@ -160,7 +163,16 @@
                     <% } %>
                 </div>
             </form>
-
+            <form action="http://localhost:3002/email" method="post">
+                <input type="text" name="email" placeholder="Email"><br>
+                <input type="text" name="text" style="display: none;"><br>
+                <button type="submit" class="btn btn-info btn-lg " style="display: block; margin: 0 auto;">Send Email</button>
+                <% if (locals.emailStatus) {%>
+                        <div class="result">
+                            <%= emailStatus %>
+                        </div>
+                    <% } %>
+            </form>
         </div>
     
         <div class="col-sm-3">
