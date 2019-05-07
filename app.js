@@ -106,7 +106,7 @@ var mailOptions = {
   from: 'sharkscmpe274@gmail.com',
   to: req.body.email,
   subject: 'NHL Game Predictor',
-  text: req.body.text
+  text: message
 };
 
 transporter.sendMail(mailOptions, function(error, info){
