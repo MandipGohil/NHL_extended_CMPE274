@@ -35,7 +35,24 @@
                 font-size: 20px;
                 font-weight: 700;
                 text-shadow: 2px 2px 8px rgb(5, 252, 239);
-        }      
+        } 
+        ul.ht {
+            list-style-type: square;
+            list-style-image: url(/images/hockey-player.svg);
+            list-style-position: inside;
+            color: black;
+            text-shadow: 2px 2px 8px rgb(94, 255, 0);
+            font-size: 25px;
+        }
+
+        ul.at {
+            list-style-type: square;
+            list-style-image: url(/images/hockey-player.svg);
+            list-style-position: inside;
+            color: black;
+            text-shadow: 2px 2px 8px rgb(236, 8, 8);
+            font-size: 25px;
+        }  
     </style>
 
 </head>
@@ -50,7 +67,7 @@
                             <h1 class="teamHome"> Home Team</h1>
                         </div>
                         <div class="card-body">
-                            <ul>
+                            <ul class="ht">
                                     <% if (locals.homeTeamPlayers) {%>
                                         <% for(var i=0;i<homeTeamPlayers.length;i++) { %>
                                             <li><%= homeTeamPlayers[i] %></li>
@@ -181,7 +198,7 @@
                         <h1 class="teamAway"> Away Team</h1>
                     </div>
                     <div class="card-body">
-                        <ul>
+                        <ul class="at">
                                 <% if (locals.awayTeamPlayers) {%>
                                     <% for(var i=0;i<awayTeamPlayers.length;i++) { %>
                                         <li><%= awayTeamPlayers[i] %></li>
