@@ -52,11 +52,15 @@
             color: black;
             text-shadow: 2px 2px 8px rgb(236, 8, 8);
             font-size: 25px;
-        }  
+        }
+        .body-styles {
+        background-repeat: no-repeat;background-size: cover;
+        background-image: url(images/im1.jpg)
+        }
     </style>
 
 </head>
-<body background="/images/im1.jpg" style="background-repeat: no-repeat;background-size: cover">
+<body class="body-styles">
     <% let homeTeamBackend = ""%>
     <% let awayTeamBackend = ""%>
     <div class="container">
@@ -81,7 +85,7 @@
             <h1 class="main"><span class="fa"></span> NHL Game Predictor</h1>
             
             <!-- LOGIN FORM -->
-            <form action="http://localhost:3002/" method="post">
+            <form action="/" method="post">
                 <div class="form-group">
                     <label class="teamHome">Home Team</label>
 
@@ -180,7 +184,7 @@
                     <% } %>
                 </div>
             </form>
-            <form action="http://localhost:3002/email" method="post">
+            <form action="/email" method="post">
                 <input type="text" name="email" placeholder="Email"><br>
                 <input type="text" name="text" style="display: none;"><br>
                 <button type="submit" class="btn btn-info btn-lg " style="display: block; margin: 0 auto;">Send Email</button>
