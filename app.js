@@ -11,6 +11,21 @@ app.set('view engine','ejs');
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: false }));
 var nodemailer = require("nodemailer");
+var MongoClient = require('mongodb').MongoClient;
+
+var url = "mongodb+srv://admin:admin@nhl-cluster-6yf4s.mongodb.net/test?retryWrites=true";
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("NHL");
+  console.log("connected")
+  dbo.collection("Users").find({}).toArray(function(err, result) {
+    if (err) throw err;
+    console.log(result);
+    db.close();
+  });
+});
+
 app.get('/', (req, res) => {
   res.render('home')
 })
