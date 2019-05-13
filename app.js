@@ -15,17 +15,6 @@ var MongoClient = require('mongodb').MongoClient;
 
 var url = "mongodb+srv://admin:admin@nhl-cluster-6yf4s.mongodb.net/test?retryWrites=true";
 
-MongoClient.connect(url, function(err, db) {
-  if (err) throw err;
-  var dbo = db.db("NHL");
-  console.log("connected")
-  dbo.collection("Users").find({}).toArray(function(err, result) {
-    if (err) throw err;
-    console.log(result);
-    db.close();
-  });
-});
-
 app.get('/', (req, res) => {
   res.render('home')
 })
@@ -114,7 +103,11 @@ app.post('/', (req, res) => {
     })
   })
 })
+
 app.post('/email',(req, res) => {
+var d = new Date();
+var ONE_HOUR = 60 * 60 * 1000; /* ms */
+
 var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
@@ -123,11 +116,44 @@ var transporter = nodemailer.createTransport({
     }
 });
 
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("NHL");
+  console.log("connected")
+  dbo.collection("Match-schedule").find({}).toArray(function(err, result) {
+    if (err) throw err;
+    for (var i = 0; i < result.length; i++) {
+    console.log(result[i].Date - (new Date));
+    if ((result[i].Date - (new Date) ) > 0 && (result[i].Date - (new Date) ) < ONE_HOUR) {
+        console.log('less than hour');
+        message = 'Among teams Home Team:' + result[i].homeTeam + ' and Away Team:' + result[i].awayTeam + ', '
+        exec('python "NHL_274.py" ' + result[i].homeTeamId + ' ' + result[i].awayTeamId, (error, stdout, stderr) => {
+            console.log(error)
+            console.log(stderr)
+            console.log(stdout)
+            if (stdout == 2) {
+                message += '-> Home Team Wins.'
+            } else if (stdout == 0) {
+                message += '-> Away Team Wins.'
+            } else {
+              message += ' the match will draw.'
+            }
+            console.log(message);
+            MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("NHL");
+
+  dbo.collection("Users").find({}).toArray(function(err, result) {
+    if (err) throw err;
+    userList = result;
+    for (var i = 0; i < result.length; i++) {
+    console.log(result[i].Email);
+
 var mailOptions = {
   from: 'sharkscmpe274@gmail.com',
-  to: req.body.email,
+  to: result[i].Email,
   subject: 'Ice Hockey Game Predictor by Sharks',
-  text: message + "\r\n\r\nThank you"
+  text: "Hello " + result[i].FirstName + " " + result[i].LastName + ",\r\n\r\n" +  message + "\r\n\r\nThank you"
 };
 
 transporter.sendMail(mailOptions, function(error, info){
@@ -137,13 +163,33 @@ transporter.sendMail(mailOptions, function(error, info){
      console.log("success");
   }
 });
+    }
+    db.close();
+  });
+});
+          })
+        console.log(result[i].homeTeam);
+    }
+    }
+    db.close();
+  });
+});
+
 
 });
 
 var rule = new schedule.RecurrenceRule();
-rule.second = 05;
+rule.minute = 24;
 
 var j = schedule.scheduleJob(rule, function(){
+console.log("firing emails");
+sendEmails();
+});
+
+function sendEmails() {
+var d = new Date();
+var ONE_HOUR = 60 * 60 * 1000; /* ms */
+
 var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
@@ -152,11 +198,44 @@ var transporter = nodemailer.createTransport({
     }
 });
 
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("NHL");
+  console.log("connected")
+  dbo.collection("Match-schedule").find({}).toArray(function(err, result) {
+    if (err) throw err;
+    for (var i = 0; i < result.length; i++) {
+    console.log(result[i].Date - (new Date));
+    if ((result[i].Date - (new Date) ) > 0 && (result[i].Date - (new Date) ) < ONE_HOUR) {
+        console.log('less than hour');
+        message = 'Among teams Home Team:' + result[i].homeTeam + ' and Away Team:' + result[i].awayTeam + ', '
+        exec('python "NHL_274.py" ' + result[i].homeTeamId + ' ' + result[i].awayTeamId, (error, stdout, stderr) => {
+            console.log(error)
+            console.log(stderr)
+            console.log(stdout)
+            if (stdout == 2) {
+                message += '-> Home Team Wins.'
+            } else if (stdout == 0) {
+                message += '-> Away Team Wins.'
+            } else {
+              message += ' the match will draw.'
+            }
+            console.log(message);
+            MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("NHL");
+
+  dbo.collection("Users").find({}).toArray(function(err, result) {
+    if (err) throw err;
+    userList = result;
+    for (var i = 0; i < result.length; i++) {
+    console.log(result[i].Email);
+
 var mailOptions = {
   from: 'sharkscmpe274@gmail.com',
-  to: 'rohan.acharya@sjsu.edu',
+  to: result[i].Email,
   subject: 'Ice Hockey Game Predictor by Sharks',
-  text: message + "\r\n\r\nThank you"
+  text: "Hello " + result[i].FirstName + " " + result[i].LastName + ",\r\n\r\n" +  message + "\r\n\r\nThank you"
 };
 
 transporter.sendMail(mailOptions, function(error, info){
@@ -166,7 +245,18 @@ transporter.sendMail(mailOptions, function(error, info){
      console.log("success");
   }
 });
+    }
+    db.close();
+  });
 });
+          })
+        console.log(result[i].homeTeam);
+    }
+    }
+    db.close();
+  });
+});
+}
 
 app.post('/subscribeUser',(req, res) => {
 MongoClient.connect(url, function(err, db) {
