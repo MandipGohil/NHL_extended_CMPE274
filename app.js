@@ -167,8 +167,24 @@ transporter.sendMail(mailOptions, function(error, info){
      console.log("success");
   }
 });
-}
-);
+});
+
+app.post('/subscribe',(req, res) => {
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("NHL");
+  var myobj = { LastName: "Yedire", FirstName: "Manasa", email: "yediremanasa2gmail.com" };
+  dbo.collection("Users").insertOne(myobj, function(err, res) {
+    if (err) throw err;
+    console.log("1 document inserted");
+    db.close();
+  });
+});
+
+res.render('home');
+});
+
 // app.listen(port, () => {
 //   console.log(`Project View Listening on Port 3002!`)
 // })
