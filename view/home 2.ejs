@@ -1,0 +1,221 @@
+<!doctype html>
+<html>
+<head>
+    <title>Sharks-Ice Hockey Game Predictor</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/stylesheets/styles.css">
+    <style>
+   body { padding-top:80px; }
+        h1.teamHome {
+                color: black;
+                text-shadow: 6px 6px 8px rgb(94, 255, 0);
+            }
+        h1.teamAway {
+                color: black;
+                text-shadow: 6px 6px 8px rgb(236, 8, 8);
+        }
+        label.teamHome {
+                color: black;
+                text-shadow: 6px 6px 8px rgb(94, 255, 0);
+            }
+        label.teamAway {
+                color: black;
+                text-shadow: 6px 6px 8px rgb(236, 8, 8);
+        } 
+        h1.main {
+                color: black;
+                text-align: center;
+                text-shadow: 6px 6px 8px rgb(13, 235, 198);
+            }
+        div.result {
+                height: 80px;
+                background-color: grey;
+                text-align: center;
+                font-size: 20px;
+                font-weight: 700;
+                text-shadow: 6px 6px 8px rgb(5, 252, 239);
+        } 
+        ul.ht {
+            list-style-type: square;
+            list-style-image: url(/images/hockey-player.svg);
+            list-style-position: inside;
+            color: black;
+            text-shadow: 6px 6px 8px rgb(94, 255, 0);
+            font-size: 25px;
+        }
+
+        ul.at {
+            list-style-type: square;
+            list-style-image: url(/images/hockey-player.svg);
+            opacity: 0.5;
+            list-style-position: inside;
+            color: black;
+            text-shadow: 6px 6px 8px rgb(236, 8, 8);
+            font-size: 25px;
+        }
+        .body-styles {
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-image: url(images/2.png);
+        /* background-color: black; */
+        }
+    </style>
+
+</head>
+<body class="body-styles">
+    <% let homeTeamBackend = ""%>
+    <% let awayTeamBackend = ""%>
+    <div class="container">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="card">
+                        <div class="card-header">
+                            <h1 class="teamHome"> Home Team</h1>
+                        </div>
+                        <div class="card-body">
+                            <ul class="ht">
+                                    <% if (locals.homeTeamPlayers) {%>
+                                        <% for(var i=0;i<homeTeamPlayers.length;i++) { %>
+                                            <li><%= homeTeamPlayers[i] %></li>
+                                    <%  } }%>
+                            </ul>
+                        </div> 
+            </div>
+        </div>  
+
+        <div class="col-sm-6">
+            <h1 class="main"><span class="fa"></span>Ice Hockey Game Predictor</h1>
+            
+            <!-- LOGIN FORM -->
+            <form action="/" method="post">
+                <div class="form-group">
+                    <label class="teamHome">Home Team</label>
+
+                    <script>function f1() { 
+                        var value = document.getElementById("myList");
+                        homeTeamBackend = value.value;
+                        console.log(homeTeamBackend);
+                    }
+                    f123 = function() {
+                         console.log("emailing");
+                    }
+                    </script>
+
+                    <select name="home" id = "myList"  onchange="f1()">
+                        <option value="1,New Jersey" onclick="submit"> New Jersey</option>
+                        <option value="2,NY Islanders">NY Islanders</option>
+                        <option value="3,NY Rangers">NY Rangers</option>
+                        <option value="4,Philadelphia">Philadelphia</option>
+                        <option value="5,Pittsburgh">Pittsburgh</option>
+                        <option value="6,Boston">Boston</option>
+                        <option value="7,Buffalo">Buffalo</option>
+                        <option value="8,Montreal">Montreal</option>
+                        <option value="9,Ottawa">Ottawa</option>
+                        <option value="10,Toronto">Toronto</option>
+                        <option value="12,Carolina">Carolina</option>
+                        <option value="13,Florida">Florida</option>
+                        <option value="14,Tampa Bay">Tampa Bay</option>
+                        <option value="15,Washington">Washington</option>
+                        <option value="16,Chicago">Chicago</option>
+                        <option value="17,Detroit">Detroit</option>
+                        <option value="18,Nashville">Nashville</option>
+                        <option value="19,St Louis">St Louis</option>
+                        <option value="20,Calgary">Calgary</option>
+                        <option value="21,Colorado">Colorado</option>
+                        <option value="22,Edmonton">Edmonton</option>
+                        <option value="23,Vancouver">Vancouver</option>
+                        <option value="24,Anaheim">Anaheim</option>
+                        <option value="25,Dallas">Dallas</option>
+                        <option value="26,Los Angeles">Los Angeles</option>
+                        <option value="27,Phoenix">Phoenix</option>
+                        <option value="28,San Jose">San Jose</option>
+                        <option value="29,Columbus">Columbus</option>
+                        <option value="30,Minnesota">Minnesota</option>
+                        <option value="52,Winnipeg">Winnipeg</option>
+                        <option value="53,Arizona">Arizona</option>
+                        <option value="54,Vegas">Vegas</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="teamAway">Away Team</label>
+                    <select name="away" id="myList">
+                        <option value="1,New Jersey">New Jersey</option>
+                        <option value="2,NY Islanders">NY Islanders</option>
+                        <option value="3,NY Rangers">NY Rangers</option>
+                        <option value="4,Philadelphia">Philadelphia</option>
+                        <option value="5,Pittsburgh">Pittsburgh</option>
+                        <option value="6,Boston">Boston</option>
+                        <option value="7,Buffalo">Buffalo</option>
+                        <option value="8,Montreal">Montreal</option>
+                        <option value="9,Ottawa">Ottawa</option>
+                        <option value="10,Toronto">Toronto</option>
+                        <option value="12,Carolina">Carolina</option>
+                        <option value="13,Florida">Florida</option>
+                        <option value="14,Tampa Bay">Tampa Bay</option>
+                        <option value="15,Washington">Washington</option>
+                        <option value="16,Chicago">Chicago</option>
+                        <option value="17,Detroit">Detroit</option>
+                        <option value="18,Nashville">Nashville</option>
+                        <option value="19,St Louis">St Louis</option>
+                        <option value="20,Calgary">Calgary</option>
+                        <option value="21,Colorado">Colorado</option>
+                        <option value="22,Edmonton">Edmonton</option>
+                        <option value="23,Vancouver">Vancouver</option>
+                        <option value="24,Anaheim">Anaheim</option>
+                        <option value="25,Dallas">Dallas</option>
+                        <option value="26,Los Angeles">Los Angeles</option>
+                        <option value="27,Phoenix">Phoenix</option>
+                        <option value="28,San Jose">San Jose</option>
+                        <option value="29,Columbus">Columbus</option>
+                        <option value="30,Minnesota">Minnesota</option>
+                        <option value="52,Winnipeg">Winnipeg</option>
+                        <option value="53,Arizona">Arizona</option>
+                        <option value="54,Vegas">Vegas</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-info btn-lg " style="display: block; margin: 0 auto;">Predict</button>
+                <br><br>
+                <div class="form-group" id="result">
+                    <% if (locals.message) {%>
+                        <div class="result">
+                            <%= message %>
+                        </div>
+                    <% } else {%>
+                        <label> Please click on <strong></strong> button after selecting teams from dropdown..</label>
+                    <% } %>
+                </div>
+            </form>
+            <form action="/subscribe" method="get">
+                <button type="submit" class="btn btn-info btn-lg " style="display: block; margin: 0 auto;">Subscribe Here!</button>
+                <!-- <input type="text" name="email" placeholder="Email"><br>
+                <input type="text" name="text" style="display: none;"><br>
+                
+                <% if (locals.emailStatus) {%>
+                        <div class="result">
+                            <%= emailStatus %>
+                        </div>
+                    <% } %> -->
+            </form>
+        </div>
+    
+        <div class="col-sm-3">
+            <div class="card">
+                    <div class="card-header">
+                        <h1 class="teamAway"> Away Team</h1>
+                    </div>
+                    <div class="card-body">
+                        <ul class="at">
+                                <% if (locals.awayTeamPlayers) {%>
+                                    <% for(var i=0;i<awayTeamPlayers.length;i++) { %>
+                                        <li><%= awayTeamPlayers[i] %></li>
+                                <%  } }%>
+                        </ul>
+                    </div> 
+            </div>
+        </div> 
+    </div>
+</div>
+</body>
+</html>
