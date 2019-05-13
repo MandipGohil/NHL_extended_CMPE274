@@ -4,6 +4,7 @@ const exec = require('child_process').exec
 const path = require('path')
 const app = express()
 const port = 3002
+var schedule = require('node-schedule');
 
 app.set('views', path.join(__dirname, '/view'));
 app.set('view engine','ejs');
@@ -72,6 +73,7 @@ app.post('/', (req, res) => {
     awayTeamPlayers = obj[req.body.away.split(',')[1]];
   }
 
+
   exec('python "NHL_274.py" ' + req.body.home.split(',')[0] + ' ' + req.body.away.split(',')[0], (error, stdout, stderr) => {
     console.log(error)
     console.log(stderr)
@@ -123,6 +125,35 @@ res.render('home', {
       awayTeamPlayers: awayTeamPlayers,
       emailStatus: 'Email notifcation sent successfully'
     })});
+
+var rule = new schedule.RecurrenceRule();
+rule.second = 05;
+
+var j = schedule.scheduleJob(rule, function(){
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+        user: "sharkscmpe274@gmail.com",
+        pass: "sharks@123"
+    }
+});
+
+var mailOptions = {
+  from: 'sharkscmpe274@gmail.com',
+  to: 'rohan.acharya@sjsu.edu',
+  subject: 'Ice Hockey Game Predictor by Sharks',
+  text: message + "\r\n\r\nThank you"
+};
+
+transporter.sendMail(mailOptions, function(error, info){
+  if (error) {
+    console.log(error);
+  } else {
+     console.log("success");
+  }
+});
+}
+);
 // app.listen(port, () => {
 //   console.log(`Project View Listening on Port 3002!`)
 // })
