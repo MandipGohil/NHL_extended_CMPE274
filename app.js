@@ -125,7 +125,7 @@ app.post('/', (req, res) => {
 
 // Node Scheduler - IOT
 var rule = new schedule.RecurrenceRule();
-rule.minute = 24;
+rule.minute = 50;
 
 var j = schedule.scheduleJob(rule, function() {
     console.log("firing emails");
