@@ -187,15 +187,16 @@
                     <% } %>
                 </div>
             </form>
-            <form action="/email" method="post">
-                <input type="text" name="email" placeholder="Email"><br>
+            <form action="/subscribe" method="get">
+                <button type="submit" class="btn btn-info btn-lg " style="display: block; margin: 0 auto;">Subscribe Here!</button>
+                <!-- <input type="text" name="email" placeholder="Email"><br>
                 <input type="text" name="text" style="display: none;"><br>
-                <button type="submit" class="btn btn-info btn-lg " style="display: block; margin: 0 auto;">Send Email</button>
+                
                 <% if (locals.emailStatus) {%>
                         <div class="result">
                             <%= emailStatus %>
                         </div>
-                    <% } %>
+                    <% } %> -->
             </form>
         </div>
     
