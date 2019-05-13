@@ -61,6 +61,7 @@ var awayTeamPlayers = [];
 // APIs
 app.get('/', (req, res) => {
     res.render('home')
+    console.log(new Date);
 })
 
 app.get('/subscribe', (req, res) => {
@@ -125,7 +126,7 @@ app.post('/', (req, res) => {
 
 // Node Scheduler - IOT
 var rule = new schedule.RecurrenceRule();
-rule.minute = 50;
+rule.minute = 15;
 
 var j = schedule.scheduleJob(rule, function() {
     console.log("firing emails");
@@ -151,6 +152,7 @@ function sendEmails() {
         dbo.collection("Match-schedule").find({}).toArray(function(err, result) {
             if (err) throw err;
             for (var i = 0; i < result.length; i++) {
+            console.log(result[i].Date - (new Date));
                 if ((result[i].Date - (new Date)) > 0 && (result[i].Date - (new Date)) < ONE_HOUR) {
                     message = 'Among teams Home Team:' + result[i].homeTeam + ' and Away Team:' + result[i].awayTeam + ', '
                     exec('python "NHL_274.py" ' + result[i].homeTeamId + ' ' + result[i].awayTeamId, (error, stdout, stderr) => {
