@@ -30,6 +30,11 @@ app.get('/', (req, res) => {
   res.render('home')
 })
 
+
+app.get('/subscribe', (req, res) => {
+  res.render('subscribe')
+})
+
 app.post('/getHomeTeam', (req, res) => {
   console.log("getHomeTeam inside")
   console.log(req.body)
@@ -117,7 +122,6 @@ var transporter = nodemailer.createTransport({
         pass: "sharks@123"
     }
 });
-  console.log(req.body.email + ' ' +  message);
 
 var mailOptions = {
   from: 'sharkscmpe274@gmail.com',
@@ -134,12 +138,7 @@ transporter.sendMail(mailOptions, function(error, info){
   }
 });
 
-res.render('home', {
-      message: message,
-      homeTeamPlayers: homeTeamPlayers,
-      awayTeamPlayers: awayTeamPlayers,
-      emailStatus: 'Email notifcation sent successfully'
-    })});
+});
 
 var rule = new schedule.RecurrenceRule();
 rule.second = 05;
@@ -169,12 +168,11 @@ transporter.sendMail(mailOptions, function(error, info){
 });
 });
 
-app.post('/subscribe',(req, res) => {
-
+app.post('/subscribeUser',(req, res) => {
 MongoClient.connect(url, function(err, db) {
   if (err) throw err;
   var dbo = db.db("NHL");
-  var myobj = { LastName: "Yedire", FirstName: "Manasa", email: "yediremanasa2gmail.com" };
+  var myobj = req.body;
   dbo.collection("Users").insertOne(myobj, function(err, res) {
     if (err) throw err;
     console.log("1 document inserted");
