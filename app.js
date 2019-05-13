@@ -116,6 +116,7 @@ transporter.sendMail(mailOptions, function(error, info){
      console.log("success");
   }
 });
+
 res.render('home', {
       message: message,
       homeTeamPlayers: homeTeamPlayers,
