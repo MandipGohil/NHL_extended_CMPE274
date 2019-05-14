@@ -65,6 +65,22 @@
                 font-weight: 700;
                 text-shadow: 6px 6px 8px rgb(5, 252, 239); */
         } 
+        .initial {
+            color: rgb(206, 99, 12);
+            font-family: "Gill Sans", sans-serif;
+            font-style: normal;
+            height: 120px;
+            text-align: center;
+            font-size: 27px;
+            font-weight: normal;
+
+                /* color: black;
+                height: 80px;
+                text-align: center;
+                font-size: 20px;
+                font-weight: 700;
+                text-shadow: 6px 6px 8px rgb(5, 252, 239); */
+        } 
         ul.ht {
             list-style-type: square;
             /* list-style-image: url(/images/hockey-player.svg); */
@@ -84,6 +100,8 @@
         }
         .body-styles {
         background-repeat: no-repeat;
+        width:100%;
+     height:100%;
         background-size: cover;
         background-image: url(images/im1.jpg);
         /* background-color: black; */
@@ -231,8 +249,8 @@
                             <%= message %>
                         </div>
                         <% } else {%>
-                        <label class="result"> Please click on <strong></strong> button after selecting teams from
-                            dropdown..</label>
+                        <label class="initial"> Please click on <strong></strong> button after selecting teams from
+                            dropdown.</label>
                         <% } %>
                     </div>
                 </form>
